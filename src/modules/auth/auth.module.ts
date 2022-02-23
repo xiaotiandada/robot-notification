@@ -18,7 +18,7 @@ import { PublicStrategy } from './public.strategy';
         secretOrPrivateKey: configService.authConfig.publicKey,
         // if you want to use token with expiration date
         // signOptions: {
-        //     expiresIn: configService.getNumber('JWT_EXPIRATION_TIME'),
+        //   expiresIn: configService.authConfig.jwtExpirationTime,
         // },
       }),
       inject: [ApiConfigService],
