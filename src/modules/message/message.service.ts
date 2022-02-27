@@ -12,8 +12,19 @@ export class MessageService {
     private messageRepository: Repository<MessageEntity>,
   ) {}
 
-  getMessages(): Promise<MessageEntity[]> {
-    return this.messageRepository.find();
+  async getMessages(): Promise<{
+    data: MessageEntity[];
+    meta: { itemCount: number; totalItems: number };
+  }> {
+    const messages = await this.messageRepository.find();
+
+    return {
+      data: messages,
+      meta: {
+        itemCount: messages.length,
+        totalItems: messages.length,
+      },
+    };
   }
 
   createMessage(createMessageDto: CreateMessageDto): Promise<MessageEntity> {
