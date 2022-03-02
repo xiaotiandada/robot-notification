@@ -16,13 +16,19 @@ export class MessageService {
     data: MessageEntity[];
     meta: { itemCount: number; totalItems: number };
   }> {
-    const messages = await this.messageRepository.find();
+    const messages = await this.messageRepository.find({
+      select: ['content', 'createdAt'],
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+    const messagesCount = await this.messageRepository.count();
 
     return {
       data: messages,
       meta: {
         itemCount: messages.length,
-        totalItems: messages.length,
+        totalItems: messagesCount,
       },
     };
   }
