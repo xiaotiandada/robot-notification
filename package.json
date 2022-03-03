@@ -14,6 +14,7 @@
     "typeorm": "ts-node node_modules/typeorm/cli.js -f ormconfig",
     "migration:generate": "yarn run typeorm migration:generate -d src/database/migrations -n",
     "migration:create": "yarn run typeorm migration:create -d src/database/migrations -n",
+    "migration:run": "yarn run typeorm migration:run",
     "seed:config": "ts-node node_modules/typeorm-seeding/dist/cli.js config",
     "seed:run": "ts-node node_modules/typeorm-seeding/dist/cli.js seed",
     "new": "hygen new",
