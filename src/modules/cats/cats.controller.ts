@@ -30,7 +30,9 @@ export class CatsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
+    console.log('id', id, typeof id);
+
     return this.catsService.findOne(+id);
   }
 

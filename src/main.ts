@@ -1,3 +1,7 @@
+// https://docs.nestjs.com/modules
+// https://github1s.com/NarHakobyan/awesome-nest-boilerplate/blob/HEAD/src/main.ts#L1-L6
+// https://jishuin.proginn.com/p/763bfbd6c4dd
+
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import {
@@ -21,6 +25,6 @@ async function bootstrap() {
       // exceptionFactory: (errors) => new UnprocessableEntityException(errors),
     }),
   );
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();
