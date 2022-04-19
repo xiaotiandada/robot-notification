@@ -11,8 +11,9 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { setupSwagger } from './setup-swagger';
 
-async function bootstrap() {
+export async function bootstrap(): Promise<NestExpressApplication> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.useGlobalPipes(
@@ -25,6 +26,14 @@ async function bootstrap() {
       // exceptionFactory: (errors) => new UnprocessableEntityException(errors),
     }),
   );
-  await app.listen(3001);
+
+  setupSwagger(app);
+
+  await app.listen(process.env.PORT || 3001);
+
+  console.info(`server running on ${await app.getUrl()}`);
+
+  return app;
 }
-bootstrap();
+
+void bootstrap();

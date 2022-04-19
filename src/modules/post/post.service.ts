@@ -1,10 +1,11 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Db, getRepository, Repository } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostEntity } from './entities/post.entity';
 import { PostRepository } from './post.repository';
+import { Transactional } from 'typeorm-transactional-cls-hooked';
 
 @Injectable()
 export class PostService {
@@ -37,12 +38,12 @@ export class PostService {
     };
   }
 
-  async findOne(id: number): Promise<PostEntity> {
+  async findOne(id: string): Promise<PostEntity> {
     console.log('id', id);
     return await this.postsRepository.findOne({ where: { id } });
   }
 
-  async update(id: number, updatePostDto: UpdatePostDto) {
+  async update(id: string, updatePostDto: UpdatePostDto) {
     const existPost = await this.postsRepository.findOne({ where: { id } });
     if (!existPost) {
       throw new HttpException('Post not found', 404);
@@ -54,7 +55,7 @@ export class PostService {
     return await this.postsRepository.save(updatePost);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const existPost = await this.postsRepository.findOne({ where: { id } });
     if (!existPost) {
       throw new HttpException('Post not found', 404);

@@ -1,9 +1,12 @@
 import { IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePostDto {
+  @ApiProperty({ description: 'title' })
   @IsString()
-  title: string;
+  readonly title: string;
 
+  @ApiProperty({ description: 'description' })
   @IsString()
-  description: string;
+  readonly description: string;
 }
