@@ -5,8 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CatsModule } from './modules/cats/cats.module';
 import { DogsModule } from './modules/dogs/dogs.module';
-import { PostEntity } from './modules/post/entities/post.entity';
-import { PostModule } from './modules/post/post.module';
+import { MessageModule } from './modules/message/message.module';
 
 @Module({
   imports: [
@@ -27,13 +26,14 @@ import { PostModule } from './modules/post/post.module';
           username: 'root',
           password: '',
           database: 'robot_notification',
-          synchronize: true,
+          synchronize: process.env.NODE_ENV !== 'production',
         };
       },
     }),
     CatsModule,
     DogsModule,
-    PostModule,
+    MessageModule,
+    // PostModule,
   ],
   controllers: [],
   providers: [],

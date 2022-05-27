@@ -1,21 +1,21 @@
 import {
-  Column,
-  CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
   UpdateDateColumn,
+  Column,
 } from 'typeorm';
 
-@Entity({ name: 'posts' })
-export class PostEntity {
+@Entity({ name: 'message' })
+export class Message {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ length: 50 })
-  title: string;
+  @Column({ length: 100 })
+  type: string;
 
   @Column('text')
-  description: string;
+  content: string;
 
   @CreateDateColumn({
     type: 'timestamp',
