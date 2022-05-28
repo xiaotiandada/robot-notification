@@ -42,7 +42,7 @@ export class MessageService {
   async findOne(id: string) {
     return {
       statusCode: 0,
-      data: await this.messageRepository.findOneBy({
+      data: await this.messageRepository.findOne({
         id: id,
       }),
       message: 'success',
@@ -58,7 +58,7 @@ export class MessageService {
   }
 
   async remove(id: string) {
-    const existMessage = await this.messageRepository.findOneBy({
+    const existMessage = await this.messageRepository.findOne({
       id: id,
     });
     if (!existMessage) {
