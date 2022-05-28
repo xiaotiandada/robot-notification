@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { Repository } from 'typeorm';
@@ -42,10 +42,8 @@ export class MessageService {
   async findOne(id: string) {
     return {
       statusCode: 0,
-      data: await this.messageRepository.findOne({
-        where: {
-          id: id,
-        },
+      data: await this.messageRepository.findOneBy({
+        id: id,
       }),
       message: 'success',
     };
@@ -60,9 +58,15 @@ export class MessageService {
   }
 
   async remove(id: string) {
+    const existMessage = await this.messageRepository.findOneBy({
+      id: id,
+    });
+    if (!existMessage) {
+      throw new HttpException(`Article with id ${id} does not exist`, 404);
+    }
     return {
       statusCode: 0,
-      data: await this.messageRepository.delete(id),
+      data: await this.messageRepository.remove(existMessage),
       message: 'success',
     };
   }
