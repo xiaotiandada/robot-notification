@@ -33,6 +33,8 @@ export async function bootstrap(): Promise<NestExpressApplication> {
 
   console.info(`server running on ${await app.getUrl()}`);
 
+  console.info('env', process.env);
+
   return app;
 }
 
