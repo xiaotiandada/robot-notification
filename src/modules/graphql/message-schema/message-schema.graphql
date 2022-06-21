@@ -1,0 +1,24 @@
+type MessageSchema {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input CreateMessageSchemaInput {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input UpdateMessageSchemaInput {
+  id: Int!
+}
+
+type Query {
+  messageSchema: [MessageSchema]!
+  messageSchema(id: Int!): MessageSchema
+}
+
+type Mutation {
+  createMessageSchema(createMessageSchemaInput: CreateMessageSchemaInput!): MessageSchema!
+  updateMessageSchema(updateMessageSchemaInput: UpdateMessageSchemaInput!): MessageSchema!
+  removeMessageSchema(id: Int!): MessageSchema
+}

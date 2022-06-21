@@ -1,0 +1,53 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateMessageInput {
+  """content"""
+  content: String!
+
+  """type"""
+  type: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Message {
+  """content"""
+  content: String!
+
+  """createdAt"""
+  createdAt: DateTime!
+
+  """Id"""
+  id: String!
+
+  """type"""
+  type: String!
+
+  """updatedAt"""
+  updatedAt: DateTime!
+}
+
+type Mutation {
+  createMessage(createMessageInput: CreateMessageInput!): Message!
+  removeMessage(id: Int!): Message!
+  updateMessage(updateMessageInput: UpdateMessageInput!): Message!
+}
+
+type Query {
+  allMessage: [Message!]!
+  message(id: Int!): Message!
+}
+
+input UpdateMessageInput {
+  """content"""
+  content: String
+  id: String!
+
+  """type"""
+  type: String
+}

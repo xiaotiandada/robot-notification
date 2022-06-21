@@ -21,6 +21,6 @@ const configs: ConnectionOptions = {
   },
 };
 
-console.log('configs', configs);
+// console.log('configs', configs);
 
 export default configs;
