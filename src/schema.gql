@@ -34,18 +34,20 @@ type Message {
 
 type Mutation {
   createMessage(createMessageInput: CreateMessageInput!): Message!
-  removeMessage(id: Int!): Message!
+  removeMessage(id: String!): Message!
   updateMessage(updateMessageInput: UpdateMessageInput!): Message!
 }
 
 type Query {
   allMessage: [Message!]!
-  message(id: Int!): Message!
+  oneMessage(id: String!): Message!
 }
 
 input UpdateMessageInput {
   """content"""
   content: String
+
+  """Id"""
   id: String!
 
   """type"""

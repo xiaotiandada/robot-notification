@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
 import { CreateMessageInput } from './dto/create-message.input';
 import { UpdateMessageInput } from './dto/update-message.input';
 import { Repository } from 'typeorm';
 import { Message } from './entities/message.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class MessageService {
@@ -12,8 +12,8 @@ export class MessageService {
     private readonly messageRepository: Repository<Message>,
   ) {}
 
-  create(createMessageInput: CreateMessageInput) {
-    return 'This action adds a new message';
+  async create(createMessageInput: CreateMessageInput): Promise<Message> {
+    return await this.messageRepository.save(createMessageInput);
   }
 
   async findAll(): Promise<Message[]> {
@@ -25,23 +25,28 @@ export class MessageService {
     });
   }
 
-  async findOne(id: number): Promise<Message> {
-    // return `This action returns a #${id} message`;
-    const message = new Message();
-    message.id = String(id);
-    message.type = 'test';
-    message.content = 'test';
-    message.createdAt = new Date();
-    message.updatedAt = new Date();
-
-    return message;
+  async findOne(id: string): Promise<Message> {
+    return await this.messageRepository.findOne({
+      id,
+    });
   }
 
-  update(id: string, updateMessageInput: UpdateMessageInput) {
-    return `This action updates a #${id} message`;
+  async update(
+    id: string,
+    updateMessageInput: UpdateMessageInput,
+  ): Promise<Message> {
+    await this.messageRepository.update(id, updateMessageInput);
+    return await this.messageRepository.findOne({ id });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} message`;
+  async remove(id: string): Promise<Message> {
+    const existMessage = await this.messageRepository.findOne({
+      id: id,
+    });
+    if (!existMessage) {
+      throw new HttpException(`Article with id ${id} does not exist`, 404);
+    }
+    await this.messageRepository.delete(id);
+    return existMessage;
   }
 }
